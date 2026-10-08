@@ -12,10 +12,16 @@ public class UserInfoLab {
         System.out.println("Enter your last name");
         String last_name = input.nextLine();
         // values to the generateUsername method and save the returned result.
-        String username = generateusername(first_name, last_name);
+        String username = generateUsername(first_name, last_name);
 
         // Part 2
         // Ask the user to enter a password and pass this value to the validatePassword method.
+        System.out.println("Enter your password");
+        String password = input.nextLine();
+        if(validatePassword(password)) {
+            System.out.println("Enter your credit card number");
+            int creditCard = input.nextInt();
+        }
         // The validatePassword method will check if the password meets the criteria:
 
         // Part 3
@@ -31,11 +37,38 @@ public class UserInfoLab {
 
     public static String generateUsername(String firstName, String lastName) {
         // Fill in this method and return an appropriate username
-        return "";
+        String first = "";
+        String last = "";
+        if(firstName.length() <= 3 || lastName.length() <= 3) {
+            if(firstName.length() <= 3) {
+                first = firstName;
+            }
+            if(lastName.length() <= 3) {
+                last = lastName;
+            }
+        } else {
+            first = firstName.substring(0, 3);
+            last = lastName.substring(0, 3);
+        }
+            String username = first + last;
+        return username.toLowerCase();
     }
     public static boolean validatePassword(String password) {
         // Fill in this method and return true/false if the password is valid
-        return true;
+        if(password.length() >= 8) {
+            if(!password.equals(password.toLowerCase())) {
+                if (containsDigit(password)) {
+                    return true;
+                } else {
+                    System.out.print("You must contain at least one digit");
+                }
+            } else {
+                System.out.print("You must contain at least one uppercase letter");
+            }
+        } else {
+            System.out.print("The password must be at least 8 characters long.");
+        }
+        return false;
     }
     public static String maskCreditCard(String creditCardNumber) {
         // Fill in this method and if the credit card is valid, return a masked CC
