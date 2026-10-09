@@ -13,14 +13,23 @@ public class UserInfoLab {
         String last_name = input.nextLine();
         // values to the generateUsername method and save the returned result.
         String username = generateUsername(first_name, last_name);
+        System.out.println("Username: " + username);
 
         // Part 2
         // Ask the user to enter a password and pass this value to the validatePassword method.
         System.out.println("Enter your password");
         String password = input.nextLine();
         if(validatePassword(password)) {
+            System.out.println("Valid Password. Checking Credit Card");
             System.out.println("Enter your credit card number");
-            int creditCard = input.nextInt();
+            String creditCard = input.nextLine();
+            String masked_creditcard = maskCreditCard(creditCard);
+            if(masked_creditcard.equals("N/A")) {
+                System.out.println("Invalid Credit Card number");
+            } else {
+                System.out.println("Username: " + username);
+                System.out.println("Credit Card: " + masked_creditcard);
+            }
         }
         // The validatePassword method will check if the password meets the criteria:
 
@@ -66,13 +75,23 @@ public class UserInfoLab {
                 System.out.print("You must contain at least one uppercase letter");
             }
         } else {
-            System.out.print("The password must be at least 8 characters long.");
+                System.out.print("The password must be at least 8 characters long.");
+
         }
         return false;
     }
     public static String maskCreditCard(String creditCardNumber) {
+        String output = "";
         // Fill in this method and if the credit card is valid, return a masked CC
-        return "";
+        if(creditCardNumber.length() == 16 && allDigits(creditCardNumber)) {
+            for (int i = 0; i < 3; i++) {
+                output += "**** ";
+            }
+            output += creditCardNumber.substring(12, 16);
+            return output;
+        } else {
+            return "N/A";
+        }
     }
 
     /**
